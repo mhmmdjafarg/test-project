@@ -20,8 +20,16 @@ public class BattleGround {
         }
     }
 
-    public void setPosition(int x, int y, char symbol) {
-        grid[x][y] = symbol;
+    public void setDeadShip(int x, int y) {
+        grid[x][y] = 'X';
+    }
+
+    public void setAliveShip(int x, int y) {
+        grid[x][y] = 'B';
+    }
+
+    public void setMissiles(int x, int y) {
+        grid[x][y] = 'O';
     }
 
     public boolean isShip(int x, int y) {

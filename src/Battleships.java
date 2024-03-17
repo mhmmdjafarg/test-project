@@ -30,14 +30,14 @@ public class Battleships {
                 String[] position = shipPositions[i].split(",");
                 int x = Integer.parseInt(position[0]);
                 int y = Integer.parseInt(position[1]);
-                p1BattleGround.setPosition(x,y,'B');
+                p1BattleGround.setAliveShip(x, y);
             }
         } else {
             for (int i = 0; i < numShips; i++) {
                 String[] position = shipPositions[i].split(",");
                 int x = Integer.parseInt(position[0]);
                 int y = Integer.parseInt(position[1]);
-                p2BattleGround.setPosition(x,y,'B');
+                p2BattleGround.setAliveShip(x, y);
             }
         }
     }
@@ -45,35 +45,34 @@ public class Battleships {
     /**
      * Return true if hits, else false
      */
-    public boolean fireMissilesBy(int player, int x, int y) {
+    public void fireMissilesBy(int player, int x, int y) {
         if (player != 1 && player != 2) {
             System.out.println("Invalid player");
-            return false;
+            return;
         }
 
         if (x >= gridSize || y >= gridSize || x < 0 || y < 0) {
             System.out.println("Invalid positions");
-            return false;
+            return;
         }
 
         if (player == 1) {
-            if (p2BattleGround.isShip(x,y)) {
+            if (p2BattleGround.isShip(x, y)) {
                 this.p1Hits++;
-                p2BattleGround.setPosition(x,y,'X');
-                return true;
+                p2BattleGround.setDeadShip(x, y);
+                return;
             }
             // miss
-            p2BattleGround.setPosition(x,y,'O');
+            p2BattleGround.setMissiles(x, y);
         } else {
-            if (p1BattleGround.isShip(x,y)) {
+            if (p1BattleGround.isShip(x, y)) {
                 this.p2Hits++;
-                p1BattleGround.setPosition(x,y,'X');
-                return true;
+                p1BattleGround.setDeadShip(x, y);
+                return;
             }
             // miss
-            p1BattleGround.setPosition(x,y,'O');
+            p1BattleGround.setMissiles(x, y);
         }
-        return false;
     }
 
     public void game(String[] p1ShipPos, String[] p2ShipPos, String[] p1Missiles, String[] p2Missiles) {

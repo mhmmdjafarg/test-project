@@ -1,17 +1,16 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.List;
 import java.util.Objects;
 
 public class FileInput {
 
-    private int gridSize;
-    private int numShips;
-    private String[] p1Ships;
-    private String[] p2Ships;
-    private int totalMissiles;
-    private String[] p1MissilesPos;
-    private String[] p2MissilesPos;
+    private final int gridSize;
+    private final int numShips;
+    private final String[] p1Ships;
+    private final String[] p2Ships;
+    private final int totalMissiles;
+    private final String[] p1MissilesPos;
+    private final String[] p2MissilesPos;
 
     @Override
     public boolean equals(Object o) {
@@ -57,6 +56,7 @@ public class FileInput {
             System.out.println("Invalid file format! " + e.getMessage());
             throw e;
         }
+        reader.close();
     }
 
     public int getGridSize() {
@@ -86,10 +86,5 @@ public class FileInput {
 
     public String[] getP2MissilesPos() {
         return p2MissilesPos;
-    }
-
-    public static String[] processString(String dataString) {
-        // Split the string by colons (":") to separate key-value pairs
-        return dataString.split(":");
     }
 }
