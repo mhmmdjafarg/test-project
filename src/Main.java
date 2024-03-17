@@ -14,6 +14,7 @@ public class Main {
             return;
         }
 
-        System.out.println(fi);
+        Battleships battleships = new Battleships(fi.getGridSize(), fi.getNumShips(), fi.getTotalMissiles());
+        battleships.game(fi.getP1Ships(), fi.getP2Ships(), fi.getP1MissilesPos(), fi.getP2MissilesPos());
     }
 }

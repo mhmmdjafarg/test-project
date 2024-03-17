@@ -65,7 +65,7 @@ public class Battleships {
 
         if (player == 1) {
             if (playerGrid2[x][y] == 'B') {
-                p1Hits++;
+                this.p1Hits++;
                 playerGrid2[x][y] = 'X';
                 return true;
             }
@@ -73,7 +73,7 @@ public class Battleships {
             playerGrid2[x][y] = 'O';
         } else {
             if (playerGrid1[x][y] == 'B') {
-                p2Hits++;
+                this.p2Hits++;
                 playerGrid1[x][y] = 'X';
                 return true;
             }
@@ -83,7 +83,13 @@ public class Battleships {
         return false;
     }
 
-    public void startWar(String[] p1Missiles, String[] p2Missiles) {
+    public void game(String[] p1ShipPos, String[] p2ShipPos, String[] p1Missiles, String[] p2Missiles) {
+        placeShips(p1ShipPos, 1);
+        placeShips(p2ShipPos, 2);
+        System.out.println("Player 1 Grid: ");
+        Helper.printGrid(playerGrid1);
+        System.out.println("Player 2 Grid: ");
+        Helper.printGrid(playerGrid2);
         System.out.println("Game start ... Firing missiles!");
         for (int i = 0; i < totalMissiles; i++) {
             String[] p1Missile = p1Missiles[i].split(",");
@@ -96,8 +102,7 @@ public class Battleships {
             int y2 = Integer.parseInt(p2Missile[1]);
             fireMissilesBy(2, x2, y2);
         }
-        System.out.println("Game ends!");
-
+        System.out.println("Game ends!\n");
         printOutput();
         reset();
     }
@@ -119,6 +124,7 @@ public class Battleships {
         Helper.printGrid(playerGrid1);
         System.out.println("Player 2");
         Helper.printGrid(playerGrid2);
+        System.out.println();
         System.out.printf("P1: %d\n", p1Hits);
         System.out.printf("P2: %d\n", p2Hits);
 
