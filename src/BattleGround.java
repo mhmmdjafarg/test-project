@@ -41,15 +41,14 @@ public class BattleGround {
     }
 
     public void printMap() {
-        int row = grid.length;
         int col = grid[0].length;
 
-        for (int i = 0; i < row; i++) {
+        for (char[] chars : grid) {
             for (int j = 0; j < col; j++) {
-                if (j == col-1) {
-                    System.out.println(grid[i][j]);
+                if (j == col - 1) {
+                    System.out.println(chars[j]);
                 } else {
-                    System.out.print(grid[i][j] + " ");
+                    System.out.print(chars[j] + " ");
                 }
             }
         }
