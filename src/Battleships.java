@@ -1,13 +1,12 @@
 public class Battleships {
-    private int gridSize;
-    private int numShips;
-    private int totalMissiles;
+    private final int gridSize;
+    private final int numShips;
+    private final int totalMissiles;
 
-    // Player grids (represents ship placements)
     private int p1Hits;
     private int p2Hits;
-    private char[][] playerGrid1;
-    private char[][] playerGrid2;
+    private final char[][] playerGrid1;
+    private final char[][] playerGrid2;
 
     public Battleships(int gridSize, int numShips, int totalMissiles) {
         this.gridSize = gridSize;
@@ -82,5 +81,53 @@ public class Battleships {
             playerGrid1[x][y] = 'O';
         }
         return false;
+    }
+
+    public void startWar(String[] p1Missiles, String[] p2Missiles) {
+        System.out.println("Game start ... Firing missiles!");
+        for (int i = 0; i < totalMissiles; i++) {
+            String[] p1Missile = p1Missiles[i].split(",");
+            int x1 = Integer.parseInt(p1Missile[0]);
+            int y1 = Integer.parseInt(p1Missile[1]);
+            fireMissilesBy(1, x1, y1);
+
+            String[] p2Missile = p2Missiles[i].split(",");
+            int x2 = Integer.parseInt(p2Missile[0]);
+            int y2 = Integer.parseInt(p2Missile[1]);
+            fireMissilesBy(2, x2, y2);
+        }
+        System.out.println("Game ends!");
+
+        printOutput();
+        reset();
+    }
+
+    public void reset() {
+        this.p1Hits = 0;
+        this.p2Hits = 0;
+
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                playerGrid1[i][j] = '_';
+                playerGrid2[i][j] = '_';
+            }
+        }
+    }
+
+    public void printOutput() {
+        System.out.println("Player 1");
+        Helper.printGrid(playerGrid1);
+        System.out.println("Player 2");
+        Helper.printGrid(playerGrid2);
+        System.out.printf("P1: %d\n", p1Hits);
+        System.out.printf("P2: %d\n", p2Hits);
+
+        if (p1Hits > p2Hits) {
+            System.out.println("Player 1 wins");
+        } else if (p2Hits > p1Hits) {
+            System.out.println("Player 2 wins");
+        } else {
+            System.out.println("It is a draw");
+        }
     }
 }
